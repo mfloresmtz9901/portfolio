@@ -1,52 +1,48 @@
-# django-demo
+# Django DRF Auth
 
-Django demo for authorization and user administration
+Django project for authorization and user administration based on **Django Rest Framework**, **Dj-Rest-Auth** and **SimpleJWT** libraries, using **PostgreSQL v14.15**, mounted with Docker containerization.
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
+
+## Requirements
+
+This project is based on Docker, so in order to be executed, you need to install the Docker distribution, according to the SO you have.
 
 ## Settings
 
-Moved to [settings](https://cookiecutter-django.readthedocs.io/en/latest/1-getting-started/settings.html).
+In order to get this project to run, you need to set first the .envs folder in the root path, with the following setup:
+
+    $ /.envs/.local/.django
+    $ /.envs/.local/.postgres
+    
+For the **.django** file, you need to setup the following parameters:
+
+    USE_DOCKER=yes
+    IPYTHONDIR=/app/.ipython
+
+
+For the **.postgres** file, you need to setup the following parameters in order to let Docker start the database:
+
+    POSTGRES_HOST=postgres
+    POSTGRES_PORT=5432
+    POSTGRES_DB=django_demo
+    POSTGRES_USER=debug
+    POSTGRES_PASSWORD=debug
 
 ## Basic Commands
 
-### Setting Up Your Users
+To build the Docker containers, you need to run the following command:
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+    $ docker compose -f docker-compose.local.yml build
 
-- To create a **superuser account**, use this command:
+After bulding the required containers, you can run the project with the following command:
 
-      $ python manage.py createsuperuser
+    $ docker compose -f docker-compose.local.yml up
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+In addition, if you need to run any of the Django commands, you need to follow this syntax:
 
-### Type checks
+    $ docker compose -f docker-compose.local.yml run --rm django python manage.py **command**
 
-Running type checks with mypy:
 
-    $ mypy django_demo
 
-### Test coverage
-
-To run the tests, check your test coverage, and generate an HTML coverage report:
-
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/2-local-development/developing-locally.html#using-webpack-or-gulp).
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](https://cookiecutter-django.readthedocs.io/en/latest/3-deployment/deployment-with-docker.html).
